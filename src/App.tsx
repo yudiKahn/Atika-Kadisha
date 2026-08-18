@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Link, Routes, Route, useLocation } from 'react-router-dom'
-import './App.css'
 import Header from './components/Header'
 import siteContent from './content/siteContent.json'
 import seferImage from './assets/sefer.png'
@@ -34,26 +33,30 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
   }, [locale, location.pathname])
 
   return (
-    <div className="site-shell" dir={locale === 'he' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-cream text-ink" dir={locale === 'he' ? 'rtl' : 'ltr'}>
       <Header locale={locale} onLocaleChange={setLocale} />
 
       <Routes>
         <Route
           path="/"
           element={
-            <main className="home-layout">
-              <section className="home-hero">
+            <main className="flex flex-col">
+              <section className="relative flex min-h-[clamp(28rem,54vw,42rem)] overflow-hidden bg-forest">
+                <img
+                  src={seferImage}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover object-right"
+                  aria-hidden="true"
+                />
                 <div
-                  className="home-hero__image"
-                  style={{ backgroundImage: `url(${seferImage})` }}
+                  className="absolute inset-0 bg-[linear-gradient(90deg,rgb(10_17_12_/_88%)_0%,rgb(10_17_12_/_66%)_34%,rgb(10_17_12_/_8%)_72%),linear-gradient(0deg,rgb(10_17_12_/_18%),rgb(10_17_12_/_18%))] rtl:bg-[linear-gradient(270deg,rgb(10_17_12_/_88%)_0%,rgb(10_17_12_/_66%)_34%,rgb(10_17_12_/_8%)_72%),linear-gradient(0deg,rgb(10_17_12_/_18%),rgb(10_17_12_/_18%))]"
                   role="img"
                   aria-label={content.brandName}
                 >
-                  <div className="home-hero__copy">
-                    <h2 className="display-type home-hero__title">{content.brandName}</h2>
-                    <div className="home-hero__ornament" aria-hidden="true">♕</div>
-                    <p className="home-hero__description">{content.cards[0]?.title}</p>
-                    <button type="button" className="home-hero__cta" onClick={scrollToCategories}>
+                  <div className="relative z-10 mx-auto flex min-h-[clamp(28rem,54vw,42rem)] w-[min(calc(100%-2rem),80rem)] flex-1 flex-col items-start py-12 md:w-[min(calc(100%-4rem),80rem)] md:py-16">
+                    <h2 className="font-display text-[clamp(3.7rem,10vw,7rem)] leading-[.95] text-paper uppercase">{content.brandName}</h2>
+                    <p className="mt-6 max-w-[29rem] text-[1.02rem] leading-[1.85] text-paper/88">{content.cards[0]?.title}</p>
+                    <button type="button" className="mt-auto inline-flex max-w-1/2 min-w-68 items-center justify-center gap-3.5 self-start rounded-lg border border-gold bg-forest px-5 py-4 text-[1.05rem] font-semibold text-gold-soft shadow-[0_.8rem_2.2rem_rgb(0_0_0_/_18%)] transition hover:-translate-y-px hover:bg-forest-2" onClick={scrollToCategories}>
                       {content.ctaPrimary}
                       <span aria-hidden="true">&larr;</span>
                     </button>
@@ -61,15 +64,14 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
                 </div>
               </section>
 
-              <section id="home-category-grid" className="home-category-grid" aria-label={content.homeCategoryAria}>
+              <section id="home-category-grid" className="mx-auto mt-9 grid w-[min(calc(100%-2rem),80rem)] scroll-mt-25 gap-4 sm:grid-cols-2 lg:w-[min(calc(100%-4rem),80rem)] xl:grid-cols-4" aria-label={content.homeCategoryAria}>
                 {categoryLinks.map((link) => (
-                  <Link key={link.path} to={link.path} className="home-category-card">
+                  <Link key={link.path} to={link.path} className="flex min-h-49 flex-col items-center justify-center rounded-lg border border-line bg-card px-4 py-5 text-center text-ink no-underline shadow-card transition hover:-translate-y-0.5 hover:border-gold hover:shadow-[0_1rem_2.4rem_rgb(34_28_18_/_14%)]">
                     {getNavigationIcon(link.path) && (
-                      <img src={getNavigationIcon(link.path)} alt="" className="home-category-card__icon" aria-hidden="true" />
+                      <img src={getNavigationIcon(link.path)} alt="" className="h-16 w-16 object-contain [filter:sepia(1)_saturate(.3)_hue-rotate(80deg)_brightness(.45)]" aria-hidden="true" />
                     )}
-                    <h3>{link.label}</h3>
-                    <p>{categoryDescriptions[link.path]}</p>
-                    <span className="home-category-card__arrow" aria-hidden="true">&larr;</span>
+                    <h3 className="mt-3 text-[1.22rem] leading-tight text-forest">{link.label}</h3>
+                    <span className="mt-2 text-[1.65rem] leading-none text-gold" aria-hidden="true">&larr;</span>
                   </Link>
                 ))}
               </section>
@@ -77,37 +79,36 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
 
 
 
-              <section className={`feature-grid ${content.cards.length === 1 ? 'is-single' : ''}`}>
+              <section className="mx-auto mt-11 grid w-[min(calc(100%-2rem),80rem)] border-t border-line md:grid-cols-3 lg:w-[min(calc(100%-4rem),80rem)]">
                 {content.cards.map((item: { title: string; text: string }) => (
-                  <article key={item.title} className="feature-card">
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
+                  <article key={item.title} className="relative border-b border-line py-8 first:before:absolute first:before:left-0 first:before:top-[-1px] first:before:h-0.5 first:before:w-11 first:before:bg-gold md:px-8 md:first:pl-0 md:last:border-r-0 md:[&:not(:last-child)]:border-r md:[&:not(:first-child)]:before:hidden">
+                    <h3 className="text-[1.45rem] font-normal text-forest">{item.title}</h3>
+                    <p className="mt-3 max-w-80 text-[.84rem] leading-[1.75] text-ink-soft">{item.text}</p>
                   </article>
                 ))}
               </section>
 
-              <footer className="home-footer">
-                <div className="home-footer__brand">
-                  <p className="display-type">{content.brandName}</p>
-                  <div className="home-footer__ornament" aria-hidden="true">♕</div>
-                  <span>{content.brandSubtitle}</span>
+              <footer className="mt-1 grid gap-8 bg-forest px-4 py-13 text-paper/[.84] md:grid-cols-[1.4fr_repeat(3,1fr)] md:px-[max(1rem,calc((100%-80rem)/2))]">
+                <div>
+                  <p className="font-display text-[clamp(2.2rem,6vw,3.6rem)] leading-none text-paper uppercase">{content.brandName}</p>
+                  <span className="mt-3 block text-gold-soft">{content.brandSubtitle}</span>
                 </div>
                 <div>
-                  <h3>{content.homeFooterQuickLinksTitle}</h3>
+                  <h3 className="mb-4 text-base font-semibold text-gold-soft">{content.homeFooterQuickLinksTitle}</h3>
                   {homeLinks.filter((link) => link.path.length > 1).slice(0, 5).map((link) => (
-                    <Link key={link.path} to={link.path}>{link.label}</Link>
+                    <Link key={link.path} to={link.path} className="mt-2 block text-inherit no-underline transition hover:text-gold-soft">{link.label}</Link>
                   ))}
                 </div>
                 <div>
-                  <h3>{content.homeFooterContactTitle}</h3>
-                  <a href={`tel:${sharedContent.contactPhone.replace(/-/g, '')}`}>{sharedContent.contactPhone}</a>
-                  <a href={`mailto:${sharedContent.contactEmail}`}>{sharedContent.contactEmail}</a>
-                  <span>{content.homeFooterLocation}</span>
+                  <h3 className="mb-4 text-base font-semibold text-gold-soft">{content.homeFooterContactTitle}</h3>
+                  <a className="mt-2 block text-inherit no-underline transition hover:text-gold-soft" href={`tel:${sharedContent.contactPhone.replace(/-/g, '')}`}>{sharedContent.contactPhone}</a>
+                  <a className="mt-2 block text-inherit no-underline transition hover:text-gold-soft" href={`mailto:${sharedContent.contactEmail}`}>{sharedContent.contactEmail}</a>
+                  <span className="mt-2 block">{content.homeFooterLocation}</span>
                 </div>
                 <div>
-                  <h3>{content.homeFooterHoursTitle}</h3>
+                  <h3 className="mb-4 text-base font-semibold text-gold-soft">{content.homeFooterHoursTitle}</h3>
                   {content.homeFooterHours.map((hours) => (
-                    <span key={hours}>{hours}</span>
+                    <span key={hours} className="mt-2 block">{hours}</span>
                   ))}
                 </div>
               </footer>
@@ -125,7 +126,7 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
         href={sharedContent.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="whatsapp-link"
+        className="fixed bottom-6 right-6 z-[60] flex h-13 w-13 items-center justify-center rounded-full border border-white/[.45] bg-ink text-white shadow-[0_.75rem_2rem_rgb(34_53_41_/_18%)] transition hover:-translate-y-0.5 hover:bg-[#304f3b] focus-visible:outline-2 focus-visible:outline-[#354432] focus-visible:outline-offset-4"
         aria-label={content.whatsappAria}
       >
         <svg viewBox="0 0 30 30" className="m-2 h-full w-full" fill="currentColor" aria-hidden="true">

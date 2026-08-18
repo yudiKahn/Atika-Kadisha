@@ -19,7 +19,9 @@
   font-display: swap;
 }
 
-:root {
+@theme {
+  --font-sans: "Varela Round", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Stam Ashkenaz CLM", "Times New Roman", serif;
   --color-ink: #173527;
   --color-ink-soft: #516257;
   --color-forest: #0f3324;
@@ -30,47 +32,44 @@
   --color-line: #d9cebd;
   --color-gold: #b9985b;
   --color-gold-soft: #d7bf86;
-  --color-white: #fffdf8;
+  --color-paper: #fffdf8;
   --shadow-card: 0 0.9rem 2.2rem rgb(34 28 18 / 10%);
-  --shadow-soft: 0 0.35rem 1rem rgb(34 28 18 / 8%);
-  font-family: "Varela Round", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: var(--color-ink);
-  background-color: var(--color-cream);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  background: var(--color-cream);
-}
+@layer base {
+  :root {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-cream);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: inherit;
-  background:
-    linear-gradient(180deg, var(--color-cream) 0%, #f9f5ec 48%, var(--color-cream-2) 100%);
-}
+  html,
+  body,
+  #root {
+    min-width: 320px;
+    min-height: 100vh;
+  }
 
-#root {
-  min-height: 100vh;
-}
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, var(--color-cream) 0%, #f9f5ec 48%, var(--color-cream-2) 100%);
+  }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
 
-button {
-  font: inherit;
-}
+  button {
+    font: inherit;
+  }
 
-::selection {
-  color: #fff;
-  background: var(--color-forest);
+  ::selection {
+    color: white;
+    background: var(--color-forest);
+  }
 }
