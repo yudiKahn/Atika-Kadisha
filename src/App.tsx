@@ -10,6 +10,7 @@ import Tefillin from './pages/Tefillin'
 import SeferTorah from './pages/SeferTorah'
 import Megilla from './pages/Megilla'
 import Cart from './pages/Cart'
+import About from './pages/About'
 import { getNavigationIcon } from './utils/navigationIcons'
 
 function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: Locale) => void }) {
@@ -20,7 +21,6 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
   const categoryLinks = content.menuLinks.filter((link) =>
     ['/sefer-torah', '/mezuza', '/tefillin', '/megilla'].includes(link.path)
   )
-  const categoryDescriptions = content.homeCategoryDescriptions as Record<string, string>
   const scrollToCategories = () => {
     document.getElementById('home-category-grid')?.scrollIntoView({
       behavior: 'smooth',
@@ -120,6 +120,7 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
         <Route path="/sefer-torah" element={<SeferTorah locale={locale} />} />
         <Route path="/megilla" element={<Megilla locale={locale} />} />
         <Route path="/cart" element={<Cart locale={locale} />} />
+        <Route path="/about" element={<About locale={locale} />} />
       </Routes>
 
       <a

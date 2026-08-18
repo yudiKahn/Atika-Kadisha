@@ -71,6 +71,16 @@ export class SeoManager {
         description: 'Review the products added to your cart at Atika Kadisha.',
       },
     },
+    '/about': {
+      he: {
+        title: 'אודות | עתיקא קדישא',
+        description: 'אודות עתיקא קדישא, סופר סת״ם ומוצרי קדושה בהנהלת ובפיקוח הרב אפרים כהן.',
+      },
+      en: {
+        title: 'About | Atika Kadisha',
+        description: 'Learn about Atika Kadisha, our Sofer Stam services, supervision, and sacred products.',
+      },
+    },
   }
 
   private static readonly keywordsByLocale: Record<Locale, string> = {
