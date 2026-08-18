@@ -11,7 +11,13 @@ import SeferTorah from './pages/SeferTorah'
 import Megilla from './pages/Megilla'
 import Cart from './pages/Cart'
 import About from './pages/About'
-import { getNavigationIcon } from './utils/navigationIcons'
+
+const categoryImages: Record<string, string> = {
+  '/sefer-torah': `${import.meta.env.BASE_URL}images/sefer-torah2.jpeg`,
+  '/mezuza': `${import.meta.env.BASE_URL}images/mezuza2.jpeg`,
+  '/tefillin': `${import.meta.env.BASE_URL}images/tefillin2.jpeg`,
+  '/megilla': `${import.meta.env.BASE_URL}images/megila2.jpeg`,
+}
 
 function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: Locale) => void }) {
   const location = useLocation()
@@ -56,7 +62,7 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
                   <div className="relative z-10 mx-auto flex min-h-[clamp(28rem,54vw,42rem)] w-[min(calc(100%-2rem),80rem)] flex-1 flex-col items-start py-12 md:w-[min(calc(100%-4rem),80rem)] md:py-16">
                     <h2 className="font-display text-[clamp(3.7rem,10vw,7rem)] leading-[.95] text-paper uppercase">{content.brandName}</h2>
                     <p className="mt-6 max-w-[29rem] text-[1.02rem] leading-[1.85] text-paper/88">{content.cards[0]?.title}</p>
-                    <button type="button" className="mt-auto inline-flex max-w-1/2 min-w-68 items-center justify-center gap-3.5 self-start rounded-lg border border-gold bg-forest px-5 py-4 text-[1.05rem] font-semibold text-gold-soft shadow-[0_.8rem_2.2rem_rgb(0_0_0_/_18%)] transition hover:-translate-y-px hover:bg-forest-2" onClick={scrollToCategories}>
+                    <button type="button" className="mt-6 inline-flex max-w-1/2 min-w-68 items-center justify-center gap-3.5 self-start rounded-lg border border-gold bg-forest px-5 py-4 text-[1.05rem] font-semibold text-gold-soft shadow-[0_.8rem_2.2rem_rgb(0_0_0_/_18%)] transition hover:-translate-y-px hover:bg-forest-2" onClick={scrollToCategories}>
                       {content.ctaPrimary}
                       <span aria-hidden="true">&larr;</span>
                     </button>
@@ -66,12 +72,13 @@ function AppContent({ locale, setLocale }: { locale: Locale; setLocale: (value: 
 
               <section id="home-category-grid" className="mx-auto mt-9 grid w-[min(calc(100%-2rem),80rem)] scroll-mt-25 gap-4 sm:grid-cols-2 lg:w-[min(calc(100%-4rem),80rem)] xl:grid-cols-4" aria-label={content.homeCategoryAria}>
                 {categoryLinks.map((link) => (
-                  <Link key={link.path} to={link.path} className="flex min-h-49 flex-col items-center justify-center rounded-lg border border-line bg-card px-4 py-5 text-center text-ink no-underline shadow-card transition hover:-translate-y-0.5 hover:border-gold hover:shadow-[0_1rem_2.4rem_rgb(34_28_18_/_14%)]">
-                    {getNavigationIcon(link.path) && (
-                      <img src={getNavigationIcon(link.path)} alt="" className="h-16 w-16 object-contain [filter:sepia(1)_saturate(.3)_hue-rotate(80deg)_brightness(.45)]" aria-hidden="true" />
-                    )}
-                    <h3 className="mt-3 text-[1.22rem] leading-tight text-forest">{link.label}</h3>
-                    <span className="mt-2 text-[1.65rem] leading-none text-gold" aria-hidden="true">&larr;</span>
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="relative flex aspect-square flex-col items-center justify-center overflow-hidden rounded-lg border border-line bg-cover bg-center px-4 py-5 text-center text-paper no-underline shadow-card transition hover:-translate-y-0.5 hover:border-gold hover:shadow-[0_1rem_2.4rem_rgb(34_28_18_/_14%)]"
+                    style={{ backgroundImage: `linear-gradient(rgb(10 17 12 / 48%), rgb(10 17 12 / 48%)), url(${categoryImages[link.path]})` }}
+                  >
+                    <h3 className="relative z-10 mt-3 text-[1.22rem] leading-tight text-paper">{link.label}</h3>
                   </Link>
                 ))}
               </section>

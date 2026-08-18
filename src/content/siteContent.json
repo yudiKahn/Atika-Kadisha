@@ -97,10 +97,10 @@
     "menuLinks": [
       { "label": "עמוד בית", "path": "/" },
       { "label": "אודות", "path": "/about" },
-      { "label": "מזוזה", "path": "/mezuza" },
+      { "label": "מזוזות", "path": "/mezuza" },
       { "label": "תפילין", "path": "/tefillin" },
-      { "label": "ספר תורה", "path": "/sefer-torah" },
-      { "label": "מגילה", "path": "/megilla" },
+      { "label": "ספרי תורה", "path": "/sefer-torah" },
+      { "label": "מגילות", "path": "/megilla" },
       { "label": "תיקי תפילין", "path": "/tefillinBags" },
       { "label": "בתי מזוזה", "path": "/mezuzaHouse" }
     ],
